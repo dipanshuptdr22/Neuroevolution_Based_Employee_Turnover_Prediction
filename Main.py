@@ -168,6 +168,13 @@ class ModelPool:
         for m in self.members:
             m.evaluate_accuracy(X, y)
 
+        # Re-sort population because fitness values
+        # have changed after evaluation.
+        self.members.sort(
+            key=lambda m: m.get_score(),
+            reverse=True
+        )
+
     @staticmethod
     def init(factory):
         pool = ModelPool()
